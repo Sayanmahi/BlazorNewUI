@@ -1,0 +1,43 @@
+﻿@page "/category/create"
+@inject ICategoryService db
+@inject NavigationManager nav
+<div class="row my-2">
+    <h3 class="card-title text-primary mb-3 ml-3">Create Categories</h3>
+    <div class="col-10">
+        <EditForm Model="cat" OnValidSubmit="Create">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="form-group">
+                <lable>Product Name</lable>
+                <InputText @bind-Value="cat.Name" class="form-control"></InputText>
+            </div>
+
+            <div class="form-group">
+                <lable>Image Url</lable>
+                <InputText @bind-Value="cat.ImageUrl" class="form-control"></InputText>
+            </div>
+            <div class="form-group py-2">
+                <button class="btn btn-success">Create</button>
+                <NavLink href="category/categoryList" class="btn btn-secondary">Back</NavLink>
+            </div>
+        </EditForm>
+    </div>
+</div>
+@code {
+    private Category cat { get; set; } = new Category();
+    string data = Authorize.getusertype();
+    private async void Create()
+    {
+        if(data.Equals("Admin"))
+        {
+            var d = await db.AddCategory(cat);
+            nav.NavigateTo("category/categoryList");
+        }
+        else
+        {
+            nav.NavigateTo("login/register");
+        }
+
+    }
+
+}

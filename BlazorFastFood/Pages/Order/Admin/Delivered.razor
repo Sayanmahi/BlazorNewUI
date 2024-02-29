@@ -1,0 +1,23 @@
+﻿@page "/admin/delivered/{Id:int}"
+@inject IOrderService db
+@inject NavigationManager nav
+<h3>Delivered</h3>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    protected async override Task OnInitializedAsync()
+    {
+        string d = Authorize.getusertype();
+        if (d.Equals("Admin"))
+        {
+            var data = await db.ValidateisDelieredOrder(Id);
+            nav.NavigateTo("admin/orderprocess");
+        }
+        else
+        {
+            nav.NavigateTo("login/register");
+        }
+
+    }
+}

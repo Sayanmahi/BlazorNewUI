@@ -1,0 +1,82 @@
+﻿@page "/item/edit/{itemid:int}"
+@inject IItemService db
+@inject ICategoryService db1
+@inject NavigationManager nav
+<h3>Edit Item</h3>
+@if (cat.ImageUrl != null)
+{
+    <img src="@cat.ImageUrl" width="100" />
+}
+<div class="col-10">
+    <EditForm Model="cat" OnValidSubmit="Edit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="form-group">
+            <lable>Product Name</lable>
+            <InputText @bind-Value="cat.ProdName" class="form-control"></InputText>
+        </div>
+
+        <div class="form-group">
+            <lable>Image Url</lable>
+            <InputText @bind-Value="cat.ImageUrl" class="form-control"></InputText>
+        </div>
+        <div class="form-group">
+            <lable>Price</lable>
+            <InputNumber @bind-Value="cat.Price" class="form-control"></InputNumber>
+        </div>
+        <div class="form-group">
+            <lable>Description</lable>
+            <InputText @bind-Value="cat.Description" class="form-control"></InputText>
+        </div>
+         <div class="form-group py-2 col-6">
+                <lable>Select Category</lable>
+                <InputSelect @bind-Value="cat.CategoryId" class="form-control">
+                    <option value="0" disabled="disabled" selected>--Seelct Category--</option>
+                    @foreach(var i in c)
+                    {
+                        <option value="@i.Id">@i.Name</option>
+                    }
+                </InputSelect>
+                </div>
+        <div class="form-group py-2">
+            <button class="btn btn-success">Save Changes</button>
+            <NavLink href="category/categoryList" class="btn btn-secondary">Back</NavLink>
+        </div>
+    </EditForm>
+</div>
+
+@code {
+    [Parameter]
+    public int itemid { get; set; }
+    private Item cat { get; set; } = new Item();
+    private List<Category> c = new List<Category>();
+    string das = Authorize.getusertype();
+    protected async override Task OnInitializedAsync()
+    {
+        if(das.Equals("Admin"))
+        {
+            cat = await db.GetItemById(itemid);
+            c = await db1.GetAllCategories();
+        }
+        else
+        {
+            nav.NavigateTo("login/register");
+        }
+
+
+    }
+    private async void Edit()
+    {
+        if(das.Equals("Admin"))
+        {
+            var d = await db.EditItem(cat);
+            nav.NavigateTo("category/categoryList");
+        }
+        else
+        {
+            nav.NavigateTo("login/register");
+        }
+
+    }
+}
+

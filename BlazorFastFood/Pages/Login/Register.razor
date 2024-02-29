@@ -1,0 +1,46 @@
+﻿@page "/login/register"
+@inject ILoginService db
+@inject NavigationManager nav
+<h3>Register</h3>
+<div class="col-10">
+    <EditForm Model="cat" OnValidSubmit="Create">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="form-group">
+            <lable>Name</lable>
+            <InputText @bind-Value="cat.Name" class="form-control"></InputText>
+        </div>
+
+        <div class="form-group">
+            <lable>Email</lable>
+            <InputText @bind-Value="cat.Email" class="form-control"></InputText>
+        </div>
+
+        <div class="form-group">
+            <lable>Phone Number</lable>
+            <InputText @bind-Value="cat.PhoneNumber" class="form-control"></InputText>
+        </div>
+
+        <div class="form-group">
+            <lable>Password</lable>
+            <InputText typeof="password" @bind-Value="cat.Password" class="form-control"></InputText>
+        </div>
+        <div class="form-group py-2">
+            <button class="btn btn-success" type="submit">Login</button>
+            <NavLink href="login/register" class="btn btn-secondary">Register</NavLink>
+        </div>
+    </EditForm>
+</div>
+@code {
+    User cat = new User();
+    private async Task Create()
+    {
+        var d = await db.Register(cat);
+        if(d==true)
+        {
+            nav.NavigateTo("login/loginuser");
+        }
+
+    }
+
+}

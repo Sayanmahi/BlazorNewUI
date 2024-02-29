@@ -1,0 +1,69 @@
+﻿@page "/cart/edit/{id:int}"
+@inject ICartService db
+@inject NavigationManager nav
+<h3>Edit Cart Item</h3>
+@if (cat.ImageUrl != null)
+{
+    <img src="@cat.ImageUrl" width="100" />
+}
+<div class="col-10">
+    <EditForm Model="cat" OnValidSubmit="Edit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="form-group">
+            <lable>Product Name</lable>
+            <p>@cat.ItemName</p>
+        </div>
+        <div class="form-group">
+            <lable>Price</lable>
+            <p>@cat.Price</p>
+        </div>
+        <div class="form-group">
+            <lable>Quantity</lable>
+            <InputNumber @bind-Value="cat.Qty" class="form-control"></InputNumber>
+        </div>
+        <div class="form-group py-2">
+            <button class="btn btn-success" type="submit">Save Changes</button>
+            <NavLink href="cart/mycart" class="btn btn-secondary">Back</NavLink>
+        </div>
+    </EditForm>
+</div>
+
+@code {
+    [Parameter]
+    public int id { get; set; }
+    private MyOrder cat { get; set; } = new MyOrder();
+    Cart c = new Cart();
+    string data = Authorize.getusertype();
+    protected async override Task OnInitializedAsync()
+    {
+        if(data.Equals("User"))
+        {
+            cat = await db.GetCartItem(id);
+        }
+        else
+        {
+            nav.NavigateTo("login/register");
+        }
+
+    }
+    private async void Edit()
+    {
+        if(data.Equals("User"))
+        {
+            c.Id = cat.Id;
+            c.Qty = cat.Qty;
+            c.Price = cat.Price;
+            c.ItemId = cat.isdelivered;
+            c.UserId = Authorize.getempid();
+            var d = await db.EditItem(c);
+            nav.NavigateTo("cart/mycart");
+        }
+        else
+        {
+            nav.NavigateTo("login/register");
+        }
+
+
+    }
+}

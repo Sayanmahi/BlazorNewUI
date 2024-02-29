@@ -1,0 +1,35 @@
+﻿@page "/order/myorder/{uid:int}/{cartid:int}"
+@inject IOrderService db
+@inject ICartService db1
+@inject NavigationManager nav
+<h3>PlaceOrder</h3>
+
+@code {
+    [Parameter]
+    public int uid { get; set; }
+    [Parameter]
+    public int cartid { get; set; }
+    protected async override Task OnInitializedAsync()
+    {
+        string d1 = Authorize.getusertype();
+        if(d1.Equals("User"))
+        {
+            var d = await db1.GetCartItem(cartid);
+            MyOrder mo = new MyOrder();
+            mo.Id = cartid;
+            mo.Qty = d.Qty;
+            mo.Price = d.Price;
+            mo.uid = uid;
+            mo.ItemName = d.ItemName;
+            var data = await db.PlaceOrder(mo);
+            nav.NavigateTo("order/myorder");
+        }
+        else
+        {
+            nav.NavigateTo("login/register");
+        }
+
+
+    }
+
+}

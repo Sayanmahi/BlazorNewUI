@@ -1,0 +1,59 @@
+﻿@page "/category/edit/{Id:int}"
+@inject ICategoryService db
+@inject NavigationManager nav
+<h3>Edit Category</h3>
+ @if(cat.ImageUrl != null)
+    {
+        <img src="@cat.ImageUrl" width="100" />
+    }
+    <div class="col-10">
+        <EditForm Model="cat" OnValidSubmit="Edit">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="form-group">
+                <lable>Product Name</lable>
+                <InputText @bind-Value="cat.Name" class="form-control"></InputText>
+            </div>
+
+            <div class="form-group">
+                <lable>Image Url</lable>
+                <InputText @bind-Value="cat.ImageUrl" class="form-control"></InputText>
+            </div>
+            <div class="form-group py-2">
+                <button class="btn btn-success">Save Changes</button>
+                <NavLink href="category/categoryList" class="btn btn-secondary">Back</NavLink>
+            </div>
+        </EditForm>
+    </div>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    private Category cat { get; set; } = new Category();
+    string da = Authorize.getusertype();
+    protected async override Task OnInitializedAsync()
+    {
+        if(da.Equals("Admin"))
+        {
+            cat = await db.GetCategoryById(Id);
+        }
+        else
+        {
+            nav.NavigateTo("log/register");
+        }
+
+    }
+    private async void Edit()
+    {
+        if (da.Equals("Admin"))
+        {
+            var d = await db.EditCategory(cat);
+            nav.NavigateTo("category/categoryList");
+        }
+        else
+        {
+            nav.NavigateTo("log/register");
+        }
+
+    }
+}

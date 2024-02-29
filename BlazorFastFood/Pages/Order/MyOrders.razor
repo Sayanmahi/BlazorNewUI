@@ -1,0 +1,77 @@
+﻿@page "/order/myorder"
+@inject IOrderService db
+@inject NavigationManager nav
+<h3>My Orders</h3>
+<div class="row mt-4">
+    <div class="cl-6">
+        <h4 class="card-title text-black-info">All Items</h4>
+    </div>
+    <br />
+    <br />
+    <div class="col-12">
+        @if (cat.Any())
+        {
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var d in cat)
+                    {
+                        <tr>
+                            <td><img src="@d.ImageUrl" /></td>
+                            <td>@d.ItemName</td>
+                            <td>@d.Qty</td>
+                            <td>Rs. @d.Price.00</td>
+                            <td>@d.date</td>
+                            <td>
+                                @if(d.isdelivered==0)
+                                {
+                                    <button class="btn btn-success">Delivered</button>
+                                }
+                                else if(d.isdelivered==2)
+                                {
+                                    <button class="btn btn-primary">Preparing</button>
+                                }
+                                else
+                                {
+                                    <button class="btn btn-danger">Not Yet Delivered</button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <h4 class="card-title text-black-info">No Menus found under this category. Please try other categories.</h4>
+        }
+    </div>
+</div>
+
+@code {
+    int cid = Authorize.getempid();
+    private List<MyOrder> cat = new List<MyOrder>();
+    protected async override Task OnInitializedAsync()
+    {
+        string d = Authorize.getusertype();
+        if(d.Equals("User"))
+        {
+            cat = await db.MyOrders(cid);
+        }
+        else
+        {
+            nav.NavigateTo("login/register");
+        }
+
+    }
+
+}

@@ -1,0 +1,68 @@
+﻿@page "/cart/mycart"
+@inject NavigationManager nav
+@inject ICartService db
+<div class="row mt-4">
+    <div class="cl-6">
+        <h4 class="card-title text-black-info">All Items</h4>
+    </div>
+    <br />
+    <br />
+    <div class="col-12">
+        @if (cat.Any())
+        {
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var d in cat)
+                    {
+                        <tr>
+                            <td><img src="@d.ImageUrl" /></td>
+                            <td>@d.ItemName</td>
+                            <td>@d.Qty</td>
+                            <td>Rs. @d.Price.00</td>
+
+                            <td>
+                                <NavLink href="@($"order/myorder/{uid}/{d.Id}")" class="btn btn-success">Placeorder</NavLink>
+                                <NavLink href="@($"cart/edit/{d.Id}")" class="btn btn-primary">Edit Order</NavLink>
+                                <NavLink href="@($"cart/deletefromcart/{d.Id}")" class="btn btn-danger">Delete</NavLink>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <h4 class="card-title text-black-info">No Menus found under this category. Please try other categories.</h4>
+        }
+    </div>
+</div>
+
+@code {
+    private List<MyOrder> cat = new List<MyOrder>();
+    public int uid = Authorize.getempid();
+    protected async override Task OnInitializedAsync()
+    {
+        string data = Authorize.getusertype();
+        if(data.Equals("User"))
+        {
+            int d = Authorize.getempid();
+            cat = await db.ShowMyCart(d);
+        }
+        else
+        {
+            nav.NavigateTo("login/register");
+        }
+
+
+    }
+
+}

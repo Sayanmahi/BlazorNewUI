@@ -1,0 +1,24 @@
+﻿@page "/admin/processing/{Id:int}"
+@inject IOrderService db
+@inject NavigationManager nav
+<h3>Orderprocessing</h3>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    protected async override Task OnInitializedAsync()
+    {
+        string d = Authorize.getusertype();
+        if (d.Equals("Admin"))
+        {
+            var d1 = await db.OrderIsPreparing(Id);
+            nav.NavigateTo("admin/orderprocess");
+        }
+        else
+        {
+            nav.NavigateTo("login/register");
+        }
+
+
+    }
+}

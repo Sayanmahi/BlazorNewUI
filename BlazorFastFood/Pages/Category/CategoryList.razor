@@ -1,0 +1,66 @@
+﻿@page "/category/categoryList"
+@inject ICategoryService db
+@inject NavigationManager nav
+<div class="row mt-4">
+    <div class="cl-6">
+        <h4 class="card-title text-black-info">Category List</h4>
+    </div>
+    @if(da.Equals("Admin"))
+    {
+        <div class="col-4 offset-2">
+            <a href="category/create" class="btn btn-info form-control">Add New Category</a>
+        </div>
+    }
+
+    <br />
+    <br />
+    <div class="col-12">
+        @if (cat.Any())
+        {
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var d in cat)
+                    {
+                        <tr>
+                            <td><img src="@d.ImageUrl" /></td>
+                            <td>@d.Name</td>
+                            <td>
+                                <NavLink href="@($"item/categorybasedmenu/{d.Id}")" class="btn btn-primary">See Menu</NavLink>
+                                @if(da.Equals("Admin"))
+                                {
+                                     <NavLink href="@($"category/edit/{d.Id}")" class="btn btn-primary">Edit</NavLink>
+                                }
+                            </td>
+                               
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            }
+    </div>
+</div>
+@code {
+    private List<Category> cat= new List<Category>();
+    string da = Authorize.getusertype();
+    protected async override Task OnInitializedAsync()
+    {
+        if(!da.Equals("Not"))
+        {
+            cat = await db.GetAllCategories();
+        }
+        else
+        {
+            nav.NavigateTo("login/register");
+        }
+
+    }
+
+
+}

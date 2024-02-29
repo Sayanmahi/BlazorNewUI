@@ -1,0 +1,40 @@
+﻿@page "/login/loginadmin"
+@inject ILoginService db
+@inject NavigationManager nav
+<h3>Login Admin</h3>
+<div class="col-10">
+    <EditForm Model="cat" OnValidSubmit="Create">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="form-group">
+            <lable>Email</lable>
+            <InputText @bind-Value="cat.Email" class="form-control"></InputText>
+        </div>
+
+        <div class="form-group">
+            <lable>Password</lable>
+            <InputText typeof="password" @bind-Value="cat.Password" class="form-control"></InputText>
+        </div>
+        <div class="form-group py-2">
+            <button class="btn btn-success" type="submit">Login</button>
+        </div>
+    </EditForm>
+</div>
+
+@code {
+    private LoginDTO cat = new LoginDTO();
+    private async Task Create()
+    {
+        var d = await db.LoginAdmin(cat);
+        if (!d.Equals("Not"))
+        {
+            Authorize.setadmin();
+            nav.NavigateTo("admin/orderprocess");
+        }
+        else
+        {
+            nav.NavigateTo("login/register");
+        }
+    }
+
+}

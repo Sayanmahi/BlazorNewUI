@@ -1,0 +1,23 @@
+﻿@page "/item/inactive/{d:int}"
+@inject IItemService db
+@inject NavigationManager nav
+<h3>Inactivated</h3>
+
+@code {
+    [Parameter]
+    public int d { get; set; }
+    protected async override Task OnInitializedAsync()
+    {
+        string da = Authorize.getusertype();
+        if(da.Equals("Admin"))
+        {
+            var d1 = await db.InActiveItem(d);
+            nav.NavigateTo("item/getall");
+        }
+        else
+        {
+            nav.NavigateTo("login/register");
+        }
+
+    }
+}

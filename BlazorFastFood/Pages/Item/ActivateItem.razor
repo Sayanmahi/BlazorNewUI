@@ -1,0 +1,24 @@
+﻿@page "/item/active/{d:int}"
+@inject IItemService db
+@inject NavigationManager nav
+<h3>ActivateItem</h3>
+
+@code {
+    [Parameter]
+    public int d { get; set; }
+    protected async override Task OnInitializedAsync()
+    {
+        string data = Authorize.getusertype();
+        if(data.Equals("User"))
+        {
+            var d1 = await db.ActivateItem(d);
+            nav.NavigateTo("item/getall");
+        }
+        else
+        {
+            nav.NavigateTo("login/register");
+        }
+
+
+    }
+}

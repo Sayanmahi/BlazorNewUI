@@ -1,0 +1,22 @@
+﻿@page "/cart/deletefromcart/{id:int}"
+@inject ICartService db
+@inject NavigationManager nav
+@code {
+    [Parameter]
+    public int id { get; set; }
+    protected async override Task OnInitializedAsync()
+    {
+        string data = Authorize.getusertype();
+        if(data.Equals("Admin"))
+        {
+            var d = await db.DeleteItem(id);
+            nav.NavigateTo("cart/mycart");
+        }
+        else
+        {
+            nav.NavigateTo("login/register");
+        }
+
+    } 
+
+}
