@@ -1,19 +1,19 @@
 ﻿@page "/login/register"
 @inject ILoginService db
 @inject NavigationManager nav
-<h3>Register</h3>
-<div class="col-10">
+<div class="summary">
+    <h2>Register New User</h2>
     <EditForm Model="cat" OnValidSubmit="Create">
         <DataAnnotationsValidator />
         <ValidationSummary />
         <div class="form-group">
             <lable>Name</lable>
-            <InputText @bind-Value="cat.Name" class="form-control"></InputText>
+            <InputText @bind-Value="cat.Name" class="form-control" placeholder="Enter Your Name"></InputText>
         </div>
 
         <div class="form-group">
             <lable>Email</lable>
-            <InputText @bind-Value="cat.Email" class="form-control"></InputText>
+            <InputText @bind-Value="cat.Email" class="form-control" placeholder="example@gmail.com"></InputText>
         </div>
 
         <div class="form-group">
@@ -23,7 +23,7 @@
 
         <div class="form-group">
             <lable>Password</lable>
-            <InputText typeof="password" @bind-Value="cat.Password" class="form-control"></InputText>
+            <InputText @bind-Value="cat.Password" class="form-control" ></InputText>
         </div>
         <div class="form-group py-2">
             <button class="btn btn-success" type="submit">Login</button>
