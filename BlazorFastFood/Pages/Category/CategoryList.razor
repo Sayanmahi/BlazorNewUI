@@ -14,38 +14,33 @@
 
     <br />
     <br />
-    <div class="col-12">
-        @if (cat.Any())
-        {
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Image</th>
-                        <th>Name</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var d in cat)
-                    {
-                        <tr>
-                            <td><img src="@d.ImageUrl" /></td>
-                            <td>@d.Name</td>
-                            <td>
-                                <NavLink href="@($"item/categorybasedmenu/{d.Id}")" class="btn btn-primary">See Menu</NavLink>
-                                @if(da.Equals("Admin"))
-                                {
-                                     <NavLink href="@($"category/edit/{d.Id}")" class="btn btn-primary">Edit</NavLink>
-                                }
-                            </td>
-                               
-                        </tr>
-                    }
-                </tbody>
-            </table>
-            }
+      <div class="container">
+        <div class="card">
+    @foreach(var i in cat)
+    {
+       
+            <div class="content">
+                    <h4> @i.Name </h4>
+                    <br />                    
+                <img class="imgg" src="@i.ImageUrl" />
+                <br />
+                <br />
+                @if(da.Equals("User"))
+                {
+                        <NavLink class="buttongreen" href="@($"item/categorybasedmenu/{i.Id}")">See Menu</NavLink>
+                }
+                @if(da.Equals("Admin"))
+                {
+                        <button class="buttongbrown">See Menu</button>
+                }
+                
+                <p>------------------------------------------------------</p>
+            </div>
+      
+    }
+        </div>
     </div>
-</div>
+   </div>
 @code {
     private List<Category> cat= new List<Category>();
     string da = Authorize.getusertype();
