@@ -8,7 +8,7 @@
     @if(da.Equals("Admin"))
     {
         <div class="col-4 offset-2">
-            <a href="category/create" class="btn btn-info form-control">Add New Category</a>
+            <a href="category/create" class="buttonbrown">Add New Category</a>
         </div>
     }
 
@@ -31,7 +31,9 @@
                 }
                 @if(da.Equals("Admin"))
                 {
-                        <button class="buttongbrown">See Menu</button>
+                        
+
+                        <NavLink class="buttonbrown" href="@($"category/edit/{i.Id}")">Edit Category</NavLink>
                 }
                 
                 <p>------------------------------------------------------</p>
