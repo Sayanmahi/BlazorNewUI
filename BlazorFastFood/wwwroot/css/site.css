@@ -68,7 +68,7 @@ a, .btn-link {
     height: 105vh;
     width: 70%;
     margin-top: -70px;
-    background-repeat: no-repeat;
+    background-repeat: repeat-y;
 }
 
 .summary {

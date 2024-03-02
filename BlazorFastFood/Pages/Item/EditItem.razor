@@ -2,10 +2,11 @@
 @inject IItemService db
 @inject ICategoryService db1
 @inject NavigationManager nav
+<div class="summary">
 <h3>Edit Item</h3>
 @if (cat.ImageUrl != null)
 {
-    <img src="@cat.ImageUrl" width="100" />
+    <img src="@cat.ImageUrl" class="imgg" />
 }
 <div class="col-10">
     <EditForm Model="cat" OnValidSubmit="Edit">
@@ -43,6 +44,7 @@
             <NavLink href="category/categoryList" class="btn btn-secondary">Back</NavLink>
         </div>
     </EditForm>
+</div>
 </div>
 
 @code {

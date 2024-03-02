@@ -2,11 +2,12 @@
 @inject ICategoryService db
 @inject NavigationManager nav
 <h3>Edit Category</h3>
- @if(cat.ImageUrl != null)
+
+    <div class="summary">
+    @if (cat.ImageUrl != null)
     {
-        <img src="@cat.ImageUrl" width="100" />
+        <img src="@cat.ImageUrl" width="100" class="imgg"/>
     }
-    <div class="col-10">
         <EditForm Model="cat" OnValidSubmit="Edit">
             <DataAnnotationsValidator />
             <ValidationSummary />

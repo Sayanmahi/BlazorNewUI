@@ -3,8 +3,7 @@
 @inject NavigationManager nav
 <div class="row my-2">
     <h3 class="card-title text-primary mb-3 ml-3">Create Categories</h3>
-    <Imagerender ImageUrl="@cat.ImageUrl"></Imagerender>
-    <div class="summary" id="picture">
+    <div class="summary">
         <EditForm Model="cat" OnValidSubmit="Create">
             <DataAnnotationsValidator />
             <ValidationSummary />
@@ -27,7 +26,7 @@
 
 
 @code {
-    private Category cat { get; set; } = new Category();
+    public Category cat { get; set; } = new Category();
     string data = Authorize.getusertype();
     private async void Create()
     {

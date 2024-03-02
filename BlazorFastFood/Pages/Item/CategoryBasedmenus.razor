@@ -6,61 +6,61 @@
         <h4 class="card-title text-black-info">Menus</h4>
     </div>
     <div class="col-4 offset-2">
-        <NavLink href="@($"item/getall")" class="btn btn-primary">Get All Items</NavLink>
+        <NavLink href="@($"item/getall")" class="buttongreen">Get All Items</NavLink>
     </div>
     @if(da.Equals("Admin"))
     {
         <div class="col-4 offset-2">
-            <NavLink href="@($"item/createitem")" class="btn btn-primary">Add New Item</NavLink>
+            <NavLink href="@($"item/createitem")" class="buttonbrown">Add New Item</NavLink>
         </div>
     }
    
     <br />
     <br />
-    <div class="col-12">
+    
         @if (cat.Any())
         {
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Image</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Price</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var d in cat)
+        <div class="container">
+            <div class="card">
+                @foreach (var d in cat)
                     {
-                        <tr>
-                            <td><img src="@d.ImageUrl" /></td>
-                            <td>@d.ProdName</td>
-                            <td>@d.Description</td>
-                            <td>Rs. @d.Price.00</td>
+                            <div class="content">
+                            <h2>@d.ProdName</h2>
+                            <img src="@d.ImageUrl" class="imgg"/>
+                            <h4>Rs. @d.Price.00</h4>
+                            <p>@d.Description</p>
+                            
 
-                            <td>
+                            
                                 @if(da.Equals("User"))
                                 {
-                                    <NavLink href="@($"cart/addtocart/{d.Id}")" class="btn btn-primary">Add to Cart</NavLink>
+                                    <NavLink href="@($"cart/addtocart/{d.Id}")" class="buttongreen">Add to Cart</NavLink>
                                 }
                                 
                                 @if(da.Equals("Admin"))
                                 {
-                                    <NavLink href="@($"item/edit/{d.Id}")" class="btn btn-primary">Edit</NavLink>
-                                    <NavLink class="btn btn-primary" href="@($"item/inactive/{d.Id}")">InActivate</NavLink>
+                            @if (d.IsActive == 0)
+                            {
+                                <NavLink class="buttonbrown" href="@($"item/active/{d.Id}")">Activate</NavLink>
+                            }
+                            else
+                            {
+                                <NavLink class="buttonbrown" href="@($"item/inactive/{d.Id}")">InActivate</NavLink>
+                            }
+                            <span>   </span>
+                            <NavLink href="@($"item/edit/{d.Id}")" class="buttongreen">Edit</NavLink>
                                 }
                                 
-                            </td>
-                        </tr>
+                            <p>------------------------------------------------------------</p>
+                        </div>
+                     
                     }
-                </tbody>
-            </table>
+                    </div>
+            </div>
         }
         else{
         <h4 class="card-title text-black-info">No Menus found under this category. Please try other categories.</h4>
         }
-    </div>
 </div>
 
 @code {
