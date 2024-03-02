@@ -14,10 +14,11 @@
 
             <div class="form-group">
                 <lable>Password</lable>
-                <InputText typeof="password" @bind-Value="cat.Password" class="form-control"></InputText>
+                <input type="password" @bind="cat.Password" class="form-control"></input>
             </div>
             <div class="form-group py-2">
                 <button class="btn btn-success" type="submit">Login</button>
+                <span>             </span>
             <NavLink href="login/register" class="btn btn-secondary">Register</NavLink>
             </div>
         </EditForm>

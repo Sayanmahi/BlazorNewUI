@@ -4,7 +4,7 @@
 @inject NavigationManager nav
     <h3 class="card-title text-primary mb-3 ml-3">Create Items</h3>
     <div class="summary">
-        <h2>Create a New Item</h2>
+    <h2>Create a New Item</h2>
         <EditForm Model="cat" OnValidSubmit="Create">
             <DataAnnotationsValidator />
             <ValidationSummary />
@@ -41,7 +41,7 @@
                 </div>
             </div>
         </EditForm>
-    </div>
+</div>
 @code {
     private Item cat { get; set; } = new Item();
     private List<Category> cat1 = new List<Category>();
