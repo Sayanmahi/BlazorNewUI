@@ -1,7 +1,7 @@
 ﻿@page "/cart/addtocart/{id:int}"
 @inject ICartService db
 @inject NavigationManager nav
-<div class="col-5">
+<div class="summary">
     <EditForm Model="q" OnValidSubmit="Add">
     <div class="form-group">
         <lable>Please Provide the quantity</lable>

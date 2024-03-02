@@ -11,6 +11,7 @@ namespace BlazorFastFood.Services
         Task<bool> InActiveItem(int id);
         Task<bool> ActivateItem(int id);
         Task<List<Item>> GetItemsBasedOnCategory(int CategoryId);
+        Task<List<Item>> AdminGetItemsBasedOnCategory(int CategoryId);
         Task<List<Item>> GetAllItems();
         Task<Item> GetItemById(int id);
         Task<bool> ChangeCategory(int itemId,int categoryId);

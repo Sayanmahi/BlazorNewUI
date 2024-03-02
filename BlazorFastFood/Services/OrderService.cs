@@ -71,7 +71,7 @@ namespace BlazorFastFood.Services
 
         public async Task<List<MyOrder>> MyOrders(int cid)
         {
-            var d = await _foodDbContext.Orders.Where(x => x.UserId == cid).OrderByDescending(x => x.date).ToListAsync();
+            var d = await _foodDbContext.Orders.Where(x => x.UserId == cid && x.isdelivered==1).OrderByDescending(x => x.date).ToListAsync();
             List<MyOrder> l = new List<MyOrder>();
             if (d != null)
             {
@@ -91,7 +91,7 @@ namespace BlazorFastFood.Services
                     l.Add(n);
                 }
             }
-                var d1 = await _foodDbContext.Orders.Where(x => x.UserId == cid && x.isdelivered == 1).ToListAsync();
+                var d1 = await _foodDbContext.Orders.Where(x => x.UserId == cid && x.isdelivered == 2 || x.isdelivered==0).ToListAsync();
                 if (d1 != null)
                 {
                     foreach (var i in d1)

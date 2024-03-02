@@ -33,6 +33,12 @@ namespace BlazorFastFood.Services
             return (true);
         }
 
+        public async Task<List<Item>> AdminGetItemsBasedOnCategory(int CategoryId)
+        {
+            var d = await db.Items.Where(x => x.Id == CategoryId).ToListAsync();
+            return (d);
+        }
+
         public async Task<bool> ChangeCategory(int itemId, int categoryId)
         {
             var d= await db.Items.FirstOrDefaultAsync(x => x.Id==itemId);

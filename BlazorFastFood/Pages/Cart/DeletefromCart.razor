@@ -7,7 +7,7 @@
     protected async override Task OnInitializedAsync()
     {
         string data = Authorize.getusertype();
-        if(data.Equals("Admin"))
+        if(data.Equals("User"))
         {
             var d = await db.DeleteItem(id);
             nav.NavigateTo("cart/mycart");

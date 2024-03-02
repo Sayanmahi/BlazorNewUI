@@ -10,38 +10,29 @@
     <div class="col-12">
         @if (cat.Any())
         {
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Image</th>
-                        <th>Name</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
+            <div class="container">
+                <div class="card">
                     @foreach (var d in cat)
                     {
-                        <tr>
-                            <td><img src="@d.ImageUrl" /></td>
-                            <td>@d.ItemName</td>
-                            <td>@d.Qty</td>
-                            <td>Rs. @d.Price.00</td>
+                        <div class="content">
+                        <h2>@d.ItemName</h2>
+                        <img src="@d.ImageUrl" class="imgg"/>
+                        <h5><b>Quantity: </b>@d.Qty  <b>Price:</b>Rs @d.Price</h5>
 
-                            <td>
-                                <NavLink href="@($"order/myorder/{uid}/{d.Id}")" class="btn btn-success">Placeorder</NavLink>
+                           
+                                <NavLink href="@($"order/myorder/{uid}/{d.Id}")" class="buttongreen">Placeorder</NavLink>
                                 <NavLink href="@($"cart/edit/{d.Id}")" class="btn btn-primary">Edit Order</NavLink>
-                                <NavLink href="@($"cart/deletefromcart/{d.Id}")" class="btn btn-danger">Delete</NavLink>
-                            </td>
-                        </tr>
+                                <NavLink href="@($"cart/deletefromcart/{d.Id}")" class="buttonbrown">Delete</NavLink>
+                            </div>
                     }
-                </tbody>
-            </table>
+                    </div>
+                    </div>
         }
         else
         {
-            <h4 class="card-title text-black-info">No Menus found under this category. Please try other categories.</h4>
+            <div class="summary">
+            <h4 class="card-title text-black-info">No Items in Cart.</h4>
+            </div>
         }
     </div>
 </div>

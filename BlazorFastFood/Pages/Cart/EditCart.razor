@@ -2,22 +2,16 @@
 @inject ICartService db
 @inject NavigationManager nav
 <h3>Edit Cart Item</h3>
-@if (cat.ImageUrl != null)
-{
-    <img src="@cat.ImageUrl" width="100" />
-}
-<div class="col-10">
+<div class="summary">
     <EditForm Model="cat" OnValidSubmit="Edit">
         <DataAnnotationsValidator />
         <ValidationSummary />
-        <div class="form-group">
-            <lable>Product Name</lable>
-            <p>@cat.ItemName</p>
-        </div>
-        <div class="form-group">
-            <lable>Price</lable>
-            <p>@cat.Price</p>
-        </div>
+        <h2>@cat.ItemName</h2>
+        @if (cat.ImageUrl != null)
+        {
+            <img src="@cat.ImageUrl" class="imgg" />
+        }
+        <h4>Price: Rs @cat.Price</h4>
         <div class="form-group">
             <lable>Quantity</lable>
             <InputNumber @bind-Value="cat.Qty" class="form-control"></InputNumber>
