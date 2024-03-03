@@ -1,0 +1,42 @@
+﻿@page "/category/add"
+@inject ICategoryService db
+@inject NavigationManager nav
+@inject IJSRuntime _jsrun
+<div class="summary">
+    <h2>Add New Category</h2>
+    <div>
+    <lable>Category Name</lable>
+    <span> </span>
+    <input type="text" @bind="cat.Name" />
+    </div>
+    <br/>
+    <div>
+        <lable>Image Url</lable>
+        <span> </span>
+        <input type="text" @bind="cat.ImageUrl" />
+    </div>
+    <br/>
+    <button class="buttongreen" @onclick="Create">Create</button>
+    </div>
+
+@code {
+    public Category cat { get; set; } = new Category();
+    string data = Authorize.getusertype();
+    private async Task Create()
+    {
+        if(data.Equals("Admin"))
+        {
+            var d = await db.AddCategory(cat);
+            if(d==true)
+            {
+                await _jsrun.InvokeVoidAsync("ShowToastr", "success", "Item Added to cart!");
+                nav.NavigateTo("category/categoryList");
+            }
+        }
+        else
+        {
+            nav.NavigateTo("login/register");
+        }
+    }
+
+}
