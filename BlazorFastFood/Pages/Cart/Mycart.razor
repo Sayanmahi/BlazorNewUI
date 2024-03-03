@@ -10,6 +10,7 @@
     <div class="col-12">
         @if (cat.Any())
         {
+            <div class="summary"><h2>My Cart(@cartno Items)</h2></div>
             <div class="container">
                 <div class="card">
                     @foreach (var d in cat)
@@ -40,6 +41,7 @@
 @code {
     private List<MyOrder> cat = new List<MyOrder>();
     public int uid = Authorize.getempid();
+    public int cartno = 0;
     protected async override Task OnInitializedAsync()
     {
         string data = Authorize.getusertype();
@@ -47,6 +49,7 @@
         {
             int d = Authorize.getempid();
             cat = await db.ShowMyCart(d);
+            cartno = await db.ItemsInCart(d);
         }
         else
         {

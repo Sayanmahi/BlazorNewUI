@@ -1,6 +1,7 @@
 ﻿@page "/login/loginadmin"
 @inject ILoginService db
 @inject NavigationManager nav
+@inject IJSRuntime _jsrun
 <h3>Login Admin</h3>
 <div class="summary">
     <h2>Admin Login</h2>
@@ -30,10 +31,12 @@
         if (!d.Equals("Not"))
         {
             Authorize.setadmin();
+            await _jsrun.InvokeVoidAsync("ShowToastr", "success", "Login Successful!");
             nav.NavigateTo("admin/orderprocess");
         }
         else
         {
+            await _jsrun.InvokeVoidAsync("ShowToastr", "error", "You are not Admin");
             nav.NavigateTo("login/register");
         }
     }

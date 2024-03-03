@@ -66,6 +66,13 @@ namespace BlazorFastFood.Services
             }
             return (m);
         }
+
+        public async Task<int> ItemsInCart(int cid)
+        {
+            var d = await db.Carts.Where(x => x.UserId == cid).CountAsync();
+            return (d);
+        }
+
         public async Task<List<MyOrder>> ShowMyCart(int uid)
         {
             var d = await db.Carts.Where(x => x.UserId == uid).ToListAsync();

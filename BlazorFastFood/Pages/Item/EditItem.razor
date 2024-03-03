@@ -2,6 +2,7 @@
 @inject IItemService db
 @inject ICategoryService db1
 @inject NavigationManager nav
+@inject IJSRuntime _jsrun
 <div class="summary">
 <h3>Edit Item</h3>
 @if (cat.ImageUrl != null)
@@ -72,10 +73,15 @@
         if(das.Equals("Admin"))
         {
             var d = await db.EditItem(cat);
+            if(d==true)
+            {
+                await _jsrun.InvokeVoidAsync("ShowToastr", "success", "Edit successful!");
+            }
             nav.NavigateTo("category/categoryList");
         }
         else
         {
+            await _jsrun.InvokeVoidAsync("ShowToastr", "error", "Register or Login first!");
             nav.NavigateTo("login/register");
         }
 

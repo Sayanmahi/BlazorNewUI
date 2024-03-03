@@ -1,28 +1,31 @@
 ﻿@page "/category/create"
 @inject ICategoryService db
 @inject NavigationManager nav
-<div class="row my-2">
-    <h3 class="card-title text-primary mb-3 ml-3">Create Categories</h3>
+
+@if (cat.ImageUrl != null)
+{
+    <img src="@cat.ImageUrl" class="imgg" />
+}
+    
     <div class="summary">
-        <EditForm Model="cat" OnValidSubmit="Create">
-            <DataAnnotationsValidator />
-            <ValidationSummary />
+
+    <h2 class="card-title text-primary mb-3 ml-3">Create Categories</h2>
             <div class="form-group">
                 <lable>Product Name</lable>
-                <InputText @bind-Value="cat.Name" class="form-control"></InputText>
+                <input @bind="cat.Name" class="form-control"></input>
             </div>
 
             <div class="form-group">
                 <lable>Image Url</lable>
-                <InputText @bind-Value="cat.ImageUrl" class="form-control"></InputText>
+                <input @bind="cat.ImageUrl" class="form-control"></input>
             </div>
             <div class="form-group py-2">
-                <button class="btn btn-success">Create</button>
+                <button class="btn btn-success" @onclick="Create">Create</button>
                 <NavLink href="category/categoryList" class="btn btn-secondary">Back</NavLink>
             </div>
-        </EditForm>
+       
     </div>
-</div>
+
 
 
 @code {

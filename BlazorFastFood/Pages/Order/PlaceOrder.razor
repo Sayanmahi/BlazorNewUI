@@ -2,6 +2,7 @@
 @inject IOrderService db
 @inject ICartService db1
 @inject NavigationManager nav
+@inject IJSRuntime _jsrun
 <h3>PlaceOrder</h3>
 
 @code {
@@ -22,10 +23,15 @@
             mo.uid = uid;
             mo.ItemName = d.ItemName;
             var data = await db.PlaceOrder(mo);
+            if(data==true)
+            {
+                await _jsrun.InvokeVoidAsync("ShowToastr", "success", "Placed order successfully!");
+            }
             nav.NavigateTo("order/myorder");
         }
         else
         {
+            await _jsrun.InvokeVoidAsync("ShowToastr", "error", "Register or Login first!");
             nav.NavigateTo("login/register");
         }
 

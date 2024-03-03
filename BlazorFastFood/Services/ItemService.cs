@@ -35,7 +35,7 @@ namespace BlazorFastFood.Services
 
         public async Task<List<Item>> AdminGetItemsBasedOnCategory(int CategoryId)
         {
-            var d = await db.Items.Where(x => x.Id == CategoryId).ToListAsync();
+            var d = await db.Items.Where(x => x.CategoryId == CategoryId).ToListAsync();
             return (d);
         }
 

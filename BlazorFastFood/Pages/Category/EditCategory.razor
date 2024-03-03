@@ -1,6 +1,7 @@
 ﻿@page "/category/edit/{Id:int}"
 @inject ICategoryService db
 @inject NavigationManager nav
+@inject IJSRuntime _jsrun
 <h3>Edit Category</h3>
 
     <div class="summary">
@@ -40,6 +41,7 @@
         }
         else
         {
+            await _jsrun.InvokeVoidAsync("ShowToastr", "error", "Register or Login first!");
             nav.NavigateTo("log/register");
         }
 
@@ -49,10 +51,15 @@
         if (da.Equals("Admin"))
         {
             var d = await db.EditCategory(cat);
+            if (d == true)
+            {
+                await _jsrun.InvokeVoidAsync("ShowToastr", "success", "Item Added to cart!");
+            }
             nav.NavigateTo("category/categoryList");
         }
         else
         {
+            await _jsrun.InvokeVoidAsync("ShowToastr", "error", "Register or Login first!");
             nav.NavigateTo("log/register");
         }
 

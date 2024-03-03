@@ -1,6 +1,7 @@
 ﻿@page "/cart/deletefromcart/{id:int}"
 @inject ICartService db
 @inject NavigationManager nav
+@inject IJSRuntime _jsrun
 @code {
     [Parameter]
     public int id { get; set; }
@@ -10,10 +11,15 @@
         if(data.Equals("User"))
         {
             var d = await db.DeleteItem(id);
+            if(d==true)
+            {
+                await _jsrun.InvokeVoidAsync("ShowToastr", "success", "Item Deleted from your cart");
+            }
             nav.NavigateTo("cart/mycart");
         }
         else
         {
+            await _jsrun.InvokeVoidAsync("ShowToastr", "error", "Register or Login first!");
             nav.NavigateTo("login/register");
         }
 

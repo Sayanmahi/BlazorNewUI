@@ -1,6 +1,7 @@
 ﻿@page "/cart/addtocart/{id:int}"
 @inject ICartService db
 @inject NavigationManager nav
+@inject IJSRuntime _jsrun
 <div class="summary">
     <EditForm Model="q" OnValidSubmit="Add">
     <div class="form-group">
@@ -29,10 +30,15 @@
             cart.Qty = q.Qty;
             cart.UserId = Authorize.getempid();
             var d = await db.AddToCart(cart);
+            if(d==true)
+            {
+                await _jsrun.InvokeVoidAsync("ShowToastr", "success","Item Added to cart!");
+            }
             nav.NavigateTo("cart/mycart");
         }
         else
         {
+            await _jsrun.InvokeVoidAsync("ShowToastr", "error", "Register or Login first!");
             nav.NavigateTo("login/register");
         }
 

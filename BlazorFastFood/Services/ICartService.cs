@@ -12,6 +12,7 @@ namespace BlazorFastFood.Services
         Task<bool> AddToCart(Cart cart);
         Task<bool> EditItem(Cart cart);
         Task<bool> DeleteItem(int id);
+        Task<int> ItemsInCart(int cid);
 
 
 
