@@ -24,5 +24,11 @@
             empid = 0;
             return true;
         }
+        public static bool logout()
+        {
+            empid = -999;
+            usertype = "Not";
+            return true;
+        }
     }
 }

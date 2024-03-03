@@ -91,7 +91,7 @@ namespace BlazorFastFood.Services
                     l.Add(n);
                 }
             }
-                var d1 = await _foodDbContext.Orders.Where(x => x.UserId == cid && x.isdelivered == 2 || x.isdelivered==0).ToListAsync();
+                var d1 = await _foodDbContext.Orders.Where(x => x.UserId == cid && (x.isdelivered == 2 || x.isdelivered==0)).ToListAsync();
                 if (d1 != null)
                 {
                     foreach (var i in d1)
