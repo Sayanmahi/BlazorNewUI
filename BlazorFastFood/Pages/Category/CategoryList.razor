@@ -1,10 +1,6 @@
 ﻿@page "/category/categoryList"
 @inject ICategoryService db
 @inject NavigationManager nav
-<div class="row mt-4">
-    <div class="cl-6">
-        <h4 class="card-title text-black-info">Category List</h4>
-    </div>
     @if(da.Equals("Admin"))
     {
         <div class="col-4 offset-2">
@@ -44,7 +40,7 @@
     }
         </div>
     </div>
-   </div>
+  
 @code {
     private List<Category> cat= new List<Category>();
     string da = Authorize.getusertype();

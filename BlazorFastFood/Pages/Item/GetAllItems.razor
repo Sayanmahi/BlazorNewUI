@@ -1,10 +1,6 @@
 ﻿@page "/item/getall"
 @inject NavigationManager nav
 @inject IItemService db
-<div class="row mt-4">
-    <div class="cl-6">
-        <h4 class="card-title text-black-info">All Items</h4>
-    </div>
     <br />
     <br />
         @if (cat.Any())
@@ -16,10 +12,14 @@
                     {
                         <div class="content">
                         <h2><b>@d.ProdName</b></h2>
-                            <img src="@d.ImageUrl" class="imgg"/>
-                            <h4>Rs. @d.Price.00</h4>
+                        <div class="img-wt-des">
+                            <img src="@d.ImageUrl" class="imgg" style="align-items:center"/>
+                            <div class="des">
+                            
                             <p>@d.Description</p>
-
+                            </div>
+                            </div>
+                    <h4>Rs. @d.Price.00</h4>
                                 @if(dd.Equals("Admin"))
                                 {
                                     @if (d.IsActive == 0)
@@ -35,7 +35,7 @@
                                 }
                                 else
                                 {
-                                    <NavLink class="btn btn-success" href="@($"cart/addtocart/{d.Id}")">Add To Cart</NavLink>
+                                    <NavLink class="buttongreen" href="@($"cart/addtocart/{d.Id}")">Add To Cart</NavLink>
                                 }
 
                             </div>
@@ -49,7 +49,6 @@
         {
             <h4 class="card-title text-black-info">No Menus found under this category. Please try other categories.</h4>
         }
-    </div>
 
 
 @code {

@@ -1,34 +1,35 @@
 ﻿@page "/item/categorybasedmenu/{catid:int}"
 @inject NavigationManager nav
 @inject IItemService db
-<div class="row mt-4">
-    <div class="cl-6">
-        <h4 class="card-title text-black-info">Menus</h4>
-    </div>
-    <div class="col-4 offset-2">
-        <NavLink href="@($"item/getall")" class="buttongreen">Get All Items</NavLink>
-    </div>
-    @if(da.Equals("Admin"))
-    {
-        <div class="col-4 offset-2">
-            <NavLink href="@($"item/add")" class="buttonbrown">Add New Item</NavLink>
-        </div>
-    }
+   
    
     <br />
     <br />
     
         @if (cat.Any())
         {
-        <div class="container">
-            <div class="card">
+        
+            <div class="summary">
+        <div class="col-4 offset-2">
+            <NavLink href="@($"item/getall")" class="buttongreen">Get All Items</NavLink>
+        </div>
+        @if (da.Equals("Admin"))
+        {
+            <div class="col-4 offset-2">
+                <NavLink href="@($"item/add")" class="buttonbrown">Add New Item</NavLink>
+            </div>
+        }
                 @foreach (var d in cat)
                     {
                             <div class="content">
                             <h2><b>@d.ProdName</b></h2>
-                            <img src="@d.ImageUrl" class="imgg"/>
-                            <h4>Rs. @d.Price.00</h4>
+                <div class="img-wt-des">
+                            <img src="@d.ImageUrl" class="imggflex" />
+                    <div class="desc" style="font-">
                             <p>@d.Description</p>
+                            </div>
+                            </div>
+                            <h4>Rs. @d.Price.00</h4>
                             
 
                             
@@ -56,12 +57,11 @@
                      
                     }
                     </div>
-            </div>
+            
         }
         else{
         <h4 class="card-title text-black-info">No Menus found under this category. Please try other categories.</h4>
         }
-</div>
 
 @code {
     private List<Item> cat = new List<Item>();

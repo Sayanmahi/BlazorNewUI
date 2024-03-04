@@ -2,9 +2,6 @@
 @inject NavigationManager nav
 @inject ICartService db
 <div class="row mt-4">
-    <div class="cl-6">
-        <h4 class="card-title text-black-info">All Items</h4>
-    </div>
     <br />
     <br />
     <div class="col-12">
@@ -22,8 +19,8 @@
 
                            
                                 <NavLink href="@($"order/myorder/{uid}/{d.Id}")" class="buttongreen">Placeorder</NavLink>
-                                <NavLink href="@($"cart/edit/{d.Id}")" class="btn btn-primary">Edit Order</NavLink>
-                                <NavLink href="@($"cart/deletefromcart/{d.Id}")" class="buttonbrown">Delete</NavLink>
+                                <NavLink href="@($"cart/edit/{d.Id}")" class="buttonbrown">Edit Order</NavLink>
+                                <NavLink href="@($"cart/deletefromcart/{d.Id}")" class="buttongreen">Delete</NavLink>
                             </div>
                     }
                     </div>

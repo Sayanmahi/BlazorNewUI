@@ -97,48 +97,84 @@ a, .btn-link {
 .container {
     display: flex;
     flex-wrap: wrap;
-    margin-left: 11rem;
+    margin-left: 0rem;
     justify-content: space-around;
 }
 
 .card {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
-    width: 100%;
-    margin: 40px;
+    width: 500%;
+    margin: 20px;
 }
+
 
     .card:hover {
         box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     }
 
 .container .card .content {
-    padding: 20px;
+    padding: 10px;
 }
+
+
 .imgg {
     width: 200px;
     height: 150px;
+}
+.imggflex {
+    width: 200px;
+    height: 150px;
+    display:flex;
+    margin-right:5px;
 }
 .buttonbrown {
     background-color: brown;
     color: white;
     border: none;
-    padding: 15px 32px;
+    padding: 5px 5px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
     border-radius: 12px;
+    width:150px;
+    height:30px;
 }
 .buttongreen {
     background-color: forestgreen;
     color: white;
     border: none;
-    padding: 15px 32px;
+    padding: 5px 5px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
     border-radius: 12px;
-}
+    width:150px;
+    height:30px;
 
+}
+.img-wt-des{
+    display:flex;
+    align-content:center;
+}
+.img-wt-des img{
+    width:200px;
+    height:150px;
+    margin-right:10px;
+}
+.img-wt-des .des{
+    flex:1;
+}
+.img-wt-des .des p{
+    font-size:16px;
+    color:black;
+}
+.img-wt-des .desc{
+    flex:1;
+}
+    .img-wt-des .desc p {
+        font-size: 16px;
+        color:white;
+    }
