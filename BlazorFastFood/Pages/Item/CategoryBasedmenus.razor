@@ -10,13 +10,14 @@
         {
         
             <div class="summary">
+        <h1><b>Menu</b></h1>
         <div class="col-4 offset-2">
-            <NavLink href="@($"item/getall")" class="buttongreen">Get All Items</NavLink>
+            <NavLink href="@($"item/getall")" class="allitemsgreen" style="">Get All Items</NavLink>
         </div>
         @if (da.Equals("Admin"))
         {
             <div class="col-4 offset-2">
-                <NavLink href="@($"item/add")" class="buttonbrown">Add New Item</NavLink>
+                <NavLink href="@($"item/add")" class="allitemsbrown">Add New Item</NavLink>
             </div>
         }
                 @foreach (var d in cat)
@@ -25,13 +26,16 @@
                             <h2><b>@d.ProdName</b></h2>
                 <div class="img-wt-des">
                             <img src="@d.ImageUrl" class="imggflex" />
-                    <div class="desc" style="font-">
+                    <div class="desc">
                             <p>@d.Description</p>
                             </div>
                             </div>
+                            <div class="left-div">
                             <h4>Rs. @d.Price.00</h4>
-                            
-
+                            </div>
+                           <br />
+                            <br />
+                            <div class="left-div">
                             
                                 @if(da.Equals("User"))
                                 {
@@ -51,9 +55,12 @@
                             <span>   </span>
                             <NavLink href="@($"item/edit/{d.Id}")" class="buttongreen">Edit</NavLink>
                                 }
+                                </div>
+                                <br />
+                                <br />
                                 
-                            <p>------------------------------------------------------------</p>
                         </div>
+                        <hr />
                      
                     }
                     </div>

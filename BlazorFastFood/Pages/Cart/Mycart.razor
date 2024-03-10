@@ -14,14 +14,21 @@
                     {
                         <div class="content">
                         <h2>@d.ItemName</h2>
+                        <div class="img-wt-des">
                         <img src="@d.ImageUrl" class="imgg"/>
-                        <h5><b>Quantity: </b>@d.Qty  <b>Price:</b>Rs @d.Price</h5>
+                        <div class="des">
+                        <h5><b>Quantity: </b>@d.Qty <br/> <b>Price:</b>Rs @d.Price</h5>
+                        </div>
+                        </div>
+                        <br/>
+
 
                            
                                 <NavLink href="@($"order/myorder/{uid}/{d.Id}")" class="buttongreen">Placeorder</NavLink>
                                 <NavLink href="@($"cart/edit/{d.Id}")" class="buttonbrown">Edit Order</NavLink>
                                 <NavLink href="@($"cart/deletefromcart/{d.Id}")" class="buttongreen">Delete</NavLink>
                             </div>
+                            <hr/>
                     }
                     </div>
                     </div>

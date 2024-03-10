@@ -2,17 +2,17 @@
 
 <PageTitle>BlazorFastFood</PageTitle>
 
+<NavLink href="@($"login/logout")" class="logbut">Logout</NavLink>
 <div class="page">
     <div class="sidebar">
         <NavMenu />
     </div>
 
     <main>
-        <div class="top-row px-2" style="background-color:transparent">
-            <a href="login/logout" class="btn btn-danger">Logout</a>
-        </div>
 
+        
         <article class="content px-4">
+            
             @Body
         </article>
     </main>
