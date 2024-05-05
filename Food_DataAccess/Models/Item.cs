@@ -21,6 +21,8 @@ namespace Food_DataAccess.Models
         public int CategoryId { get; set; }
         public Category? Category { get; set; }
         public int IsActive { get; set; }
+        [NotMapped]
+        public bool BootIsActive { get; set; }
 
     }
 }

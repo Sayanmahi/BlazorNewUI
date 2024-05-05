@@ -46,12 +46,21 @@
                                 {
                             @if (d.IsActive == 0)
                             {
-                                <NavLink class="buttonbrown" href="@($"item/active/{d.Id}")">Activate</NavLink>
+                            <div class="col-12">
+                                <Switch OnColor="Color.Success" OffColor="Color.Danger" OnText="Active" OffText="InActive"  ValueChanged="()=>Activate(d.Id)"></Switch>
+                            </div>
+                            <!--  -->
+                            <NavLink class="buttonbrown" href="@($"item/active/{d.Id}")">Activate</NavLink>
+                                
                             }
                             else
                             {
-                                <NavLink class="buttonbrown" href="@($"item/inactive/{d.Id}")">InActivate</NavLink>
-                            }
+                            <div class="col-12">
+                                <Switch OnColor="Color.Danger" OffColor="Color.Success" OnText="InActive" OffText="Active"  ValueChanged="()=>InActivate(d.Id)"></Switch>
+                            </div>
+                            <!--  -->
+                            <NavLink class="buttonbrown" href="@($"item/inactive/{d.Id}")">InActivate</NavLink>
+                        }
                             <span>   </span>
                             <NavLink href="@($"item/edit/{d.Id}")" class="buttongreen">Edit</NavLink>
                                 }
@@ -81,10 +90,32 @@
         if(da.Equals("User"))
         {
             cat = await db.GetItemsBasedOnCategory(catid);
+            foreach(var i in cat)
+            {
+                if(i.IsActive==0)
+                {
+                    i.BootIsActive = false;
+                }
+                else
+                {
+                    i.BootIsActive = true;
+                }
+            }
         }
         else if (da.Equals("Admin"))
         {
             cat = await db.AdminGetItemsBasedOnCategory(catid);
+            foreach (var i in cat)
+            {
+                if (i.IsActive == 0)
+                {
+                    i.BootIsActive = false;
+                }
+                else
+                {
+                    i.BootIsActive = true;
+                }
+            }
         }
         else
         {
@@ -92,6 +123,15 @@
         }
 
 
+    }
+    public void Activate(int id)
+    {
+        nav.NavigateTo("item/active/"+id);
+        
+    }
+    public void InActivate(int id)
+    {
+        nav.NavigateTo("item/inactive/"+id);
     }
 
 }
