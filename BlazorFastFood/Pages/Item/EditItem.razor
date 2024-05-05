@@ -9,43 +9,51 @@
 {
     <img src="@cat.ImageUrl" class="imgg" />
 }
-<div class="col-10">
-    <EditForm Model="cat" OnValidSubmit="Edit">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
-        <div class="form-group">
-            <lable>Product Name</lable>
-            <InputText @bind-Value="cat.ProdName" class="form-control"></InputText>
-        </div>
 
-        <div class="form-group">
-            <lable>Image Url</lable>
-            <InputText @bind-Value="cat.ImageUrl" class="form-control"></InputText>
+
+ <GroupBox title="Add New Item"style="margin-top: 1.5rem">
+
+        <div class="row g-3">
+            <div class="col-12 col-sm-6">
+                <span>Product Name</span>
+                <BootstrapInput TValue="string" Color="Color.Primary" @bind-Value="@cat.ProdName" />
+            </div>
+            <div class="col-12 col-sm-6">
+                <span>Image Url</span>
+                <BootstrapInput TValue="string" Color="Color.Info" @bind-Value="@cat.ImageUrl"/>
+            </div>
+            <div class="col-12 col-sm-6">
+                <span>Price(Rs.)</span>
+                <BootstrapInput TValue="int" Color="Color.Warning" @bind-Value="@cat.Price"/>
+            </div>
+            <div class="col-12 col-sm-6">
+                <span>Description</span>
+                <BootstrapInput TValue="string" Color="Color.Danger" @bind-Value="@cat.Description"/>
+            </div>
         </div>
-        <div class="form-group">
-            <lable>Price</lable>
-            <InputNumber @bind-Value="cat.Price" class="form-control"></InputNumber>
-        </div>
-        <div class="form-group">
-            <lable>Description</lable>
-            <InputText @bind-Value="cat.Description" class="form-control"></InputText>
-        </div>
-         <div class="form-group py-2 col-6">
-                <lable>Select Category</lable>
-                <InputSelect @bind-Value="cat.CategoryId" class="form-control">
-                    <option value="0" disabled="disabled" selected>--Seelct Category--</option>
-                    @foreach(var i in c)
-                    {
-                        <option value="@i.Id">@i.Name</option>
-                    }
-                </InputSelect>
-                </div>
+        <br/>
+
+        <EditForm Model="c">
+            <lable>Select Category</lable>
+            <InputSelect @bind-Value="cat.CategoryId" class="form-control">
+                <option value="0" disabled="disabled" selected>--Select Category--</option>
+                @foreach (var i in c)
+                {
+                    <option value="@i.Id">@i.Name</option>
+                }
+            </InputSelect>
+        </EditForm>
+    </GroupBox>
+
+
+
+
+
         <div class="form-group py-2">
-            <button class="btn btn-success">Save Changes</button>
+            <button class="btn btn-success" @onclick="Edit">Save Changes</button>
             <NavLink href="category/categoryList" class="btn btn-secondary">Back</NavLink>
         </div>
-    </EditForm>
-</div>
+  
 </div>
 
 @code {

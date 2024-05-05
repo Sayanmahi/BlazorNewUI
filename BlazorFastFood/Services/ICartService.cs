@@ -13,6 +13,7 @@ namespace BlazorFastFood.Services
         Task<bool> EditItem(Cart cart);
         Task<bool> DeleteItem(int id);
         Task<int> ItemsInCart(int cid);
+        Task<IEnumerable<MyOrder>> EnumerOrder(int cid);
 
 
 

@@ -3,6 +3,7 @@ using Food_DataAccess.Data;
 using Food_DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Syncfusion.Blazor.Popups;
 
 namespace BlazorFastFood.Services
 {
@@ -180,6 +181,35 @@ namespace BlazorFastFood.Services
                 return (true);
             }
             else
+            {
+                return (false);
+            }
+        }
+
+        public async Task<bool> PlaceListOrder(MyOrder order)
+        {
+            try
+            {
+                foreach (var i in order.cartids)
+                {
+                    var orders = await _foodDbContext.Carts.FirstOrDefaultAsync(x => x.Id == i);
+                    Order o = new Order();
+                    o.isdelivered = 1;
+                    o.date = DateTime.Now;
+                    o.Qty = orders.Qty;
+                    o.Price = orders.Price;
+                    o.UserId = order.uid;
+                    //var d = await _foodDbContext.Items.FirstOrDefaultAsync(x => x.Id==orders.ItemId);
+                    o.ItemId = orders.ItemId;
+                    await _foodDbContext.AddAsync(o);
+                    await _foodDbContext.SaveChangesAsync();
+                    //var data = await _foodDbContext.Carts.FirstOrDefaultAsync(x => x.Id == orders.Id);
+                    _foodDbContext.Carts.Remove(orders);
+                    await _foodDbContext.SaveChangesAsync();
+                }
+                return (true);
+            }
+            catch (Exception ex)
             {
                 return (false);
             }

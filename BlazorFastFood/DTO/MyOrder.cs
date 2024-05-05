@@ -10,5 +10,6 @@
         public string ItemName { get; set; }
         public DateTime date { get; set; }
         public int isdelivered { get; set; }
+        public List<int>? cartids { get; set; }
     }
 }

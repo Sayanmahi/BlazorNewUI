@@ -50,6 +50,26 @@ namespace BlazorFastFood.Services
 
         }
 
+        public async Task<IEnumerable<MyOrder>> EnumerOrder(int cid)
+        {
+            var d = await db.Carts.Where(x => x.UserId == cid).ToListAsync();
+            List<MyOrder> list = new List<MyOrder>();
+            foreach (var i in d)
+            {
+                var itemName = await db.Items.FindAsync(i.ItemId);
+                var dto = new MyOrder()
+                {
+                    Id = i.Id,
+                    Qty = i.Qty,
+                    Price = i.Price,
+                    ImageUrl = itemName.ImageUrl,
+                    ItemName = itemName.ProdName
+                };
+                list.Add(dto);
+            }
+            return (list);
+        }
+
         public async Task<MyOrder> GetCartItem(int id)
         {
             var d = await db.Carts.FirstOrDefaultAsync(x => x.Id == id);

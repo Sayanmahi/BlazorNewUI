@@ -1,6 +1,7 @@
 ﻿@page "/cart/mycart"
 @inject NavigationManager nav
 @inject ICartService db
+@inject IOrderService db1
 <div class="row mt-4">
     <br />
     <br />
@@ -10,6 +11,14 @@
             <div class="summary"><h2>My Cart(@cartno Items)</h2></div>
             <div class="container">
                 <div class="card">
+                    <h2>Multiple Order</h2>
+                    <div class="row g-3">
+                    <div class="col-12 col-sm-6">
+                            <MultiSelect Items="@getord1"  @bind-Value="@aa1" PlaceHolder="Select To Order" />
+                            
+                    </div>
+                    </div>
+                    <Button @onclick="Multiorder" class="buttongreen">Multi Order</Button>
                     @foreach (var d in cat)
                     {
                         <div class="content">
@@ -44,6 +53,11 @@
 
 @code {
     private List<MyOrder> cat = new List<MyOrder>();
+    public List<MyOrder> sendlist = new List<MyOrder>();
+    public System.Collections.Generic.IEnumerable<BootstrapBlazor.Components.SelectedItem> getord;
+    public List<BootstrapBlazor.Components.SelectedItem> getord1 = new List<BootstrapBlazor.Components.SelectedItem>();
+    public List<BootstrapBlazor.Components.SelectedItem> newgo = new List<BootstrapBlazor.Components.SelectedItem>();
+    public List<int> aa1 = new List<int>();
     public int uid = Authorize.getempid();
     public int cartno = 0;
     protected async override Task OnInitializedAsync()
@@ -54,6 +68,17 @@
             int d = Authorize.getempid();
             cat = await db.ShowMyCart(d);
             cartno = await db.ItemsInCart(d);
+            //newgo = await db.EnumerOrder(d);
+            foreach(var i in cat)
+            {
+                var selectedItem = new BootstrapBlazor.Components.SelectedItem
+                    {
+                        Value = Convert.ToString(i.Id),
+                        Text = i.ItemName
+                    };
+                getord1.Add(selectedItem);
+
+            }
         }
         else
         {
@@ -61,6 +86,16 @@
         }
 
 
+    }
+    private async Task Multiorder()
+    {
+        MyOrder myOrder = new MyOrder()
+            {
+                uid = uid,
+                cartids=aa1
+    };
+        var d = await db1.PlaceListOrder(myOrder);
+        nav.NavigateTo("cart/mycart");
     }
 
 }

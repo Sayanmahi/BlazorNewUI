@@ -2,45 +2,52 @@
 @inject ICategoryService db1
 @inject IItemService db
 @inject NavigationManager nav
+@using BootstrapBlazor.Components
+@using BootstrapBlazor.Localization
 @inject IJSRuntime _jsrun
 <div class="summary">
     <h2>Add New Item</h2>
-    <div>
-    <lable>Product Name</lable>
-    <span> </span>
-    <input type="text" @bind="cat.ProdName" />
-    </div>
-    <br/>
-    <div>
-        <lable>Image Url</lable>
-        <span> </span>
-        <input type="text" @bind="cat.ImageUrl" />
-    </div>
-    <br/>
-    <div>
-        <lable>Price</lable>
-        <span> </span>
-        <input type="number" @bind="cat.Price" />
-    </div>
-    <br/>
-    <div>
-        <lable>Product Description</lable>
-        <span> </span>
-        <input type="text" @bind="cat.Description" />
-    </div>
-    <br/>
-    <EditForm Model="cat1">
-    <lable>Select Category</lable>
-    <InputSelect @bind-Value="cat.CategoryId" class="form-control">
-        <option value="0" disabled="disabled" selected>--Seelct Category--</option>
-        @foreach (var i in cat1)
-        {
-            <option value="@i.Id">@i.Name</option>
-        }
-    </InputSelect>
-    </EditForm>
-    <br/>
-    <button class="buttongreen" @onclick="Create">Create</button>
+
+
+    <GroupBox title="Add New Item"style="margin-top: 1.5rem">
+
+        <div class="row g-3">
+            <div class="col-12 col-sm-6">
+                <span>Product Name</span>
+                <BootstrapInput TValue="string" Color="Color.Primary" @bind-Value="@cat.ProdName" />
+            </div>
+            <div class="col-12 col-sm-6">
+                <span>Image Url</span>
+                <BootstrapInput TValue="string" Color="Color.Info" @bind-Value="@cat.ImageUrl"/>
+            </div>
+            <div class="col-12 col-sm-6">
+                <span>Price(Rs.)</span>
+                <BootstrapInput TValue="int" Color="Color.Warning" @bind-Value="@cat.Price"/>
+            </div>
+            <div class="col-12 col-sm-6">
+                <span>Description</span>
+                <BootstrapInput TValue="string" Color="Color.Danger" @bind-Value="@cat.Description"/>
+            </div>
+        </div>
+        <br/>
+
+            <EditForm Model="cat1">
+                <lable>Select Category</lable>
+                <InputSelect @bind-Value="cat.CategoryId" class="form-control">
+                    <option value="0" disabled="disabled" selected>--Select Category--</option>
+                    @foreach (var i in cat1)
+                    {
+                        <option value="@i.Id">@i.Name</option>
+                    }
+                </InputSelect>
+            </EditForm>
+       <br/>
+        <Button class="buttongreen" @onclick="Create">Create</Button>
+    </GroupBox>
+
+
+
+    
 </div>
 
 @code {

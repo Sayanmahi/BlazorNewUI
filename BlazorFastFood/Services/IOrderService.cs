@@ -14,6 +14,7 @@ namespace BlazorFastFood.Services
         Task<List<MyOrder>> MyOrders(int id);
         Task<List<MyOrder>> ShowMyUndeliveredOrders(int id);
         Task<bool> OrderIsPreparing(int id);
+        Task<bool> PlaceListOrder(MyOrder orders);
 
     }
 }
