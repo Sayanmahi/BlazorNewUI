@@ -1,0 +1,10 @@
+﻿@page "/grid/midpage"
+@inject NavigationManager nav
+<h3>MidPage</h3>
+
+@code {
+    protected override void OnInitialized()
+    {
+        nav.NavigateTo("grid/gridview");
+    }
+}

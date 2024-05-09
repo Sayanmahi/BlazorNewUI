@@ -1,0 +1,40 @@
+﻿@inject IJSRuntime js
+<h3>Child</h3>
+<Table TItem="GridData" ShowLoading="true" AllowResizing="true" Items="@da" IsStriped="true" ShowToolbar="true" ShowAddButton="false" ShowEditButton="false" ShowDeleteButton="false" ShowColumnList="true">
+
+    <TableColumns>
+            <TableColumn @bind-Field="@context.Id" Visible="@Visibility.iddisp" @bind-value="@Visibility.iddisp"></TableColumn>
+        <TableColumn @bind-Field="@context.Name" Visible="@Visibility.namedisp"></TableColumn>
+        <TableColumn @bind-Field="@context.Designation" Visible="@Visibility.designationdisp"></TableColumn>
+        <TableColumn @bind-Field="@context.Review" Visible="@Visibility.reviewdisp"></TableColumn>
+        <TableColumn @bind-Field="@context.Rating" Visible="@Visibility.ratedisp"></TableColumn>
+        
+
+    </TableColumns>
+</Table>
+@code {
+    [Parameter]
+    public List<int> ab { get; set; }
+    [Parameter]
+    public List<GridData> da { get; set; }
+    Table<GridData> grid;
+    protected override async void OnInitialized()
+    {
+        foreach(var i in ab)
+        {
+            if(i==1)
+            {
+                Visibility.iddisp = true;
+            }
+            if(i==2)
+            {
+                Visibility.namedisp = true;
+            }
+        }
+
+    }
+    private void FitColumnWidth()
+    {
+        js.InvokeVoidAsync("fitColumnWidth");
+    }
+}

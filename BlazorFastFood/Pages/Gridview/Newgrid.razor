@@ -1,0 +1,56 @@
+﻿@page "/newgridview"
+@using Blazored
+<h3>Newgrid</h3>
+<MultiSelect  Items="@getord1" @bind-Value="@getselected" @onclick="changing" PlaceHolder="Select Column to display" />
+<h3>Table</h3>
+<Child ab="@getselected" da="@data" ></Child>
+@code {
+    public List<BootstrapBlazor.Components.SelectedItem> getord1 = new List<BootstrapBlazor.Components.SelectedItem>();
+    List<int> getselected = new List<int>();
+    List<GridData> data;
+    string[] a = new string[] { "Id", "Name", "Designation", "Rating", "Review" };
+    Dictionary<int, string> dict = new Dictionary<int, string>();
+    protected override void OnInitialized()
+    {
+        data = Gridervice.getData();
+        getord1 = getOrd1();
+        dict = dictData();
+    }
+    private List<BootstrapBlazor.Components.SelectedItem> getOrd1()
+    {
+        List<BootstrapBlazor.Components.SelectedItem> p = new List<BootstrapBlazor.Components.SelectedItem>();
+        int c = 1;
+        foreach (var i in a)
+        {
+            var d = new BootstrapBlazor.Components.SelectedItem
+                {
+                    Value = Convert.ToString(c),
+                    Text = i,
+                    Active=false
+                };
+            c = c + 1;
+            p.Add(d);
+        }
+        return (p);
+    }
+    private Dictionary<int, string> dictData()
+    {
+        Dictionary<int, string> dictTemp = new Dictionary<int, string>();
+        int c = 1;
+        foreach(var i in a)
+        {
+            dictTemp.Add(c, i);
+            c = c + 1;
+        }
+        return (dictTemp);
+
+    }
+    private void changing()
+    {
+        Visibility.iddisp = true;
+        data = new List<GridData>();
+        data = Gridervice.getData();
+        
+    }
+
+}

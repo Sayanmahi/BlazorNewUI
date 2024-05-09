@@ -1,0 +1,136 @@
+﻿@page "/gridview"
+@page "/grid/gridview"
+@inject NavigationManager nav
+@inject IJSRuntime js
+<h3>Grid</h3>
+<!--<MudDataGrid Items="@data" Filterable="false" SortMode="SortMode.Multiple" Groupable="false">
+    <Columns>
+        <PropertyColumn Property="x => x.Id" />
+        <PropertyColumn Property="x => x.Name" />
+        <PropertyColumn Property="x => x.Designation" Title="Years Employed" />
+        <TemplateColumn CellClass="d-flex justify-end">
+            <CellTemplate>
+                <MudStack Row>
+                    <MudRating SelectedValue="@context.Item.Rating" />
+                </MudStack>
+            </CellTemplate>
+        </TemplateColumn>
+    </Columns>
+</MudDataGrid>-->
+<div class="col-12 col-sm-6">
+    <MultiSelect Items="@getord1" @bind-Value="@getselected" PlaceHolder="Select Column to display" @onclick="changing"/>
+</div>
+<Button @onclick="changing" class="buttongreen">Columns</Button>
+
+<div class="col-12 row-12">
+    <br/>
+    <br/>
+    <br/>
+    @if(Visibility.iddisp || Visibility.namedisp || Visibility.designationdisp || Visibility.reviewdisp || Visibility.ratedisp)
+    {
+        <Table id="myTable" width="100px" TItem="GridData" AllowResizing="true" @bind-value="Visibility.iddisp" @onclick="FitColumnWidth" Items="@data" IsStriped="true" IsFixedHeader="true" ShowToolbar="true" ShowAddButton="false" ShowEditButton="false" ShowDeleteButton="false" ShowColumnList="@prime">
+        
+            <TableColumns>
+                <TableColumn @bind-Field="@context.Id" Visible="@Visibility.iddisp"></TableColumn>
+                <TableColumn @bind-Field="@context.Name" Visible="@Visibility.namedisp"></TableColumn>
+                <TableColumn @bind-Field="@context.Designation" Visible="@Visibility.designationdisp"></TableColumn>
+                <TableColumn @bind-Field="@context.Review" Visible="@Visibility.reviewdisp" Width="@c"></TableColumn>
+                <TableColumn @bind-Field="@context.Rating" Visible="@Visibility.ratedisp"></TableColumn>
+
+            </TableColumns>
+            
+        </Table>
+    }
+
+</div>
+@code {
+    List<GridData> data;
+    Dictionary<int, string> dict = new Dictionary<int, string>();
+    int c = 100;
+    List<int> getselected = new List<int>();
+    public List<BootstrapBlazor.Components.SelectedItem> getord1 = new List<BootstrapBlazor.Components.SelectedItem>();
+    string[] a = new string []{"Id","Name","Designation","Rating","Review" };
+    public bool iddisp = false;
+    public bool namedisp = true;
+    public bool designationdisp=false;
+    public bool reviewdisp=false;
+    public bool ratedisp = true;
+    public bool prime = true;
+
+
+    protected override void OnInitialized()
+    {
+        data = Gridervice.getData();
+        int c = 1;
+        foreach(var i in a)
+        {
+            var dd = new BootstrapBlazor.Components.SelectedItem
+                {
+                    Value = Convert.ToString(c),
+                    Text = i,
+                    Active=false
+                };
+            c = c + 1;
+            getord1.Add(dd);
+        }
+        dict = dictData();
+
+    }
+    private Dictionary<int, string> dictData()
+    {
+        Dictionary<int, string> dictTemp = new Dictionary<int, string>();
+        int c = 1;
+        foreach (var i in a)
+        {
+            dictTemp.Add(c, i);
+            c = c + 1;
+        }
+        return (dictTemp);
+
+    }
+    public IEnumerable<GridData> ReturnData()
+    {
+        return (data);
+    }
+    public void changing()
+    {
+        foreach (var i in getselected)
+        {
+            if (i == 1)
+            {
+                Visibility.iddisp = true;
+            }
+        }
+        Visibility.reviewdisp = true;
+        //data = ReturnData();
+        //prime=false;
+        //prime = true;
+
+        Gridervice.data.Add(new GridData { Id = 11, Name = "Alice", Designation = "Manager", Rating = 4, Review = "Consistently exceeds expectations in teamwork and communication skills" });
+        data = Gridervice.getData();
+        StateHasChanged();
+        //nav.NavigateTo("grid/midpage");
+
+    }
+    private async Task FitColumnWidth()
+    {
+        int m = 0;
+        foreach(var i in data)
+        {
+            if(i.Review.Length>m)
+            {
+                m = i.Review.Length;
+            }
+        }
+        if(m==0)
+        {
+            c = 450;
+        }
+        else
+        {
+            c = m*3;
+        }
+        await js.InvokeVoidAsync("tableResize.makeResizable", "myTable");
+    }
+
+}

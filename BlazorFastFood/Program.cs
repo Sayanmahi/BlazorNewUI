@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Cors.Infrastructure;
 using BlazorFastFood.Services;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Syncfusion.Blazor;
+using MudBlazor.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -16,6 +17,7 @@ builder.Services.AddServerSideBlazor();
 // Add this line of code
 builder.Services.AddBootstrapBlazor();
 builder.Services.AddSyncfusionBlazor();
+builder.Services.AddMudServices();
 
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();

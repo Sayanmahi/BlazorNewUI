@@ -1,8 +1,10 @@
 ﻿@inherits LayoutComponentBase
+@using MudBlazor;
 
 <PageTitle>BlazorFastFood</PageTitle>
 
 <NavLink href="@($"login/logout")" class="logbut">Logout</NavLink>
+
 <div class="page">
     <div class="sidebar">
         <NavMenu />
@@ -12,7 +14,6 @@
 
         
         <article class="content px-4">
-            
             @Body
         </article>
     </main>

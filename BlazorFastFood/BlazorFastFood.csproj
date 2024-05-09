@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Blazored.Menu" Version="2.2.0" />
     <PackageReference Include="BootstrapBlazor" Version="8.5.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.27" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.27">
@@ -14,6 +15,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.27" />
+    <PackageReference Include="MudBlazor" Version="6.19.1" />
     <PackageReference Include="Syncfusion.Blazor.DropDowns" Version="25.1.42" />
     <PackageReference Include="Syncfusion.Blazor.Themes" Version="25.1.42" />
   </ItemGroup>
